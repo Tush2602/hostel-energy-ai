@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Smart Hostel Energy Monitor</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="chart.umd.min.js"></script>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">⚡</div>
+      <div>
+        <h1>AI Smart Hostel Energy Monitor</h1>
+        <p class="sub">Room 101 · PZEM-004T + ESP32 · live readings every ~20 s</p>
+      </div>
+    </div>
+    <div class="status">
+      <span id="pill" class="pill">connecting…</span>
+      <span id="last" class="muted"></span>
+    </div>
+  </header>
+
+  <div id="trip" class="trip hidden">
+    <div class="trip-title">⛔ TRIP SIGNAL SENT</div>
+    <div id="trip-text"></div>
+  </div>
+
+  <main>
+    <!-- live numbers -->
+    <section class="kpis">
+      <div class="card kpi big" id="k-power-card">
+        <div class="label">Power now</div>
+        <div class="value"><span id="k-power">–</span><small>W</small></div>
+        <div class="note" id="k-power-note"></div>
+      </div>
+      <div class="card kpi"><div class="label">Voltage</div><div class="value"><span id="k-volt">–</span><small>V</small></div><div class="note" id="k-volt-note"></div></div>
+      <div class="card kpi"><div class="label">Current</div><div class="value"><span id="k-amp">–</span><small>A</small></div><div class="note">True RMS</div></div>
+      <div class="card kpi"><div class="label">Power factor</div><div class="value"><span id="k-pf">–</span></div><div class="note" id="k-pf-note"></div></div>
+      <div class="card kpi"><div class="label">Today's energy</div><div class="value"><span id="k-today">–</span><small>Wh</small></div><div class="note" id="k-today-note"></div></div>
+      <div class="card kpi"><div class="label">Month bill (estimate)</div><div class="value"><small>₹</small><span id="k-bill">–</span></div><div class="note" id="k-bill-note"></div></div>
+      <div class="card kpi ai" id="k-ai-card"><div class="label">AI: appliance check</div><div class="value small" id="k-ai">–</div><div class="note" id="k-ai-note"></div></div>
+    </section>
+
+    <!-- main charts -->
+    <section class="row two-one">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h2>Today — AI forecast vs actual energy (every hour)</h2>
+            <p class="muted">Forecast made at midnight from past data only. Actual bars appear as each hour completes.</p>
+          </div>
+          <div class="chips">
+            <span class="chip">Forecast today <b id="c-total">–</b></span>
+            <span class="chip">Peak hour <b id="c-peak">–</b></span>
+            <span class="chip">So far: forecast <b id="c-fsofar">–</b> · actual <b id="c-asofar">–</b></span>
+            <span class="chip good">Last 7 days accuracy <b id="c-acc">–</b></span>
+          </div>
+        </div>
+        <div class="chart tall"><canvas id="ch-today"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h2>Live power — last 30 min</h2>
+            <p class="muted">Red line = trip limit, orange = 30 s limit</p>
+          </div>
+        </div>
+        <div class="chart tall"><canvas id="ch-live"></canvas></div>
+      </div>
+    </section>
+
+    <section class="row three">
+      <div class="card">
+        <div class="card-head"><div><h2>Last 7 days — forecast vs actual</h2><p class="muted">Daily total (Wh)</p></div></div>
+        <div class="chart"><canvas id="ch-days"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>Alerts &amp; events</h2><p class="muted" id="active-count"></p></div></div>
+        <ul id="events" class="events"></ul>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>AI model scores</h2><p class="muted" id="m-trained"></p></div></div>
+        <div id="models" class="models"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="muted" id="footer"></footer>
+  <script src="app.js"></script>
+</body>
+</html>

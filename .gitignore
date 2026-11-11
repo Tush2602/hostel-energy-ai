@@ -1,0 +1,9 @@
+# Python / uv
+.venv/
+__pycache__/
+*.pyc
+
+# live runtime files (change every run, not part of the project)
+data/live_data.csv
+data/events.csv
+data/forecasts.csv

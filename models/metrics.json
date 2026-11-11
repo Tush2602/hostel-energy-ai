@@ -1,0 +1,67 @@
+{
+  "trained_at": "2026-11-11 20:16",
+  "forecast": {
+    "model": "Random Forest regression (100 trees)",
+    "rooms": 40,
+    "train_days": 129,
+    "test_days": 43,
+    "accuracy": {
+      "AI model": {
+        "hostel_daily": 94.52663107600387,
+        "hostel_hourly": 85.56769740110475,
+        "room_daily": 77.22490515052597,
+        "our_room_daily": 74.9653004447804
+      },
+      "same as yesterday": {
+        "hostel_daily": 86.96823669233565,
+        "hostel_hourly": 75.30135269928766,
+        "room_daily": 67.72449549065915,
+        "our_room_daily": 60.980870103076
+      },
+      "same day last week": {
+        "hostel_daily": 81.57606773038107,
+        "hostel_hourly": 71.36287189336564,
+        "room_daily": 62.853247269499704,
+        "our_room_daily": 54.8996707916058
+      },
+      "average of last 7 days": {
+        "hostel_daily": 83.74865226980688,
+        "hostel_hourly": 73.72517952834008,
+        "room_daily": 72.09231105431012,
+        "our_room_daily": 69.72630633430302
+      }
+    },
+    "feature_importance": {
+      "typical": 0.506,
+      "mean_7d": 0.203,
+      "hour": 0.098,
+      "same_weekday_mean": 0.081,
+      "lag_7d": 0.03,
+      "lag_1d": 0.028,
+      "is_exam": 0.021,
+      "week_avg_total": 0.012,
+      "yesterday_total": 0.009,
+      "yesterday_evening": 0.009,
+      "day_of_week": 0.003,
+      "is_weekend": 0.001
+    }
+  },
+  "anomaly": {
+    "model": "Random Forest classifier (100 trees)",
+    "test_rows": 194205,
+    "test_heating_rows": 2319,
+    "precision": 0.9939991427346764,
+    "recall": 1.0,
+    "f1": 0.9969905417024936,
+    "type_accuracy": 0.9879258300991807,
+    "real_day": {
+      "readings": 22116,
+      "kettle_events": 2,
+      "events_detected": 2,
+      "kettle_readings": 558,
+      "kettle_readings_detected": 557,
+      "false_alarm_readings": 0,
+      "type_said_kettle": 1.0
+    }
+  }
+}
